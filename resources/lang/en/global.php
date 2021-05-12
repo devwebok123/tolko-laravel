@@ -1,0 +1,25 @@
+<?php
+
+return [
+    'add'                                  => 'Add',
+    'create'                               => 'Create',
+    'list'                                 => 'List',
+    'show'                                 => 'Show',
+    'entries'                              => 'Entries',
+    'search'                               => 'Search',
+    'view'                                 => 'View',
+    'edit'                                 => 'Edit',
+    'delete'                               => 'Delete',
+    'save'                                 => 'Save',
+    'pleaseSelect'                         => 'Please select',
+    'areYouSure'                           => 'Are you sure?',
+    'allRightsReserved'                    => 'All rights reserved.',
+    'downloadFile'                         => 'Download file',
+    'toggleNavigation'                     => 'Toggle navigation',
+    'home'                                 => 'Home',
+    'find'                                 => 'Найти',
+    'no_matter' => 'Не важно',
+    'actions' => 'Действия',
+    'no' => 'Нет',
+    'yes' => 'Да',
+];

@@ -1,0 +1,16 @@
+{
+    "private": true,
+    "scripts": {
+        "dev": "yarn development",
+        "development": "NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "watch": "yarn development -- --watch",
+        "watch-poll": "yarn watch -- --watch-poll",
+        "hot": "NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --disable-host-check --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "prod": "yarn production",
+        "production": "NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+    },
+    "devDependencies": {
+        "laravel-mix": "^5.0.1",
+        "vue-template-compiler": "^2.6.12"
+    }
+}

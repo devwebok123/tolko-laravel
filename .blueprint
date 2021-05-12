@@ -1,0 +1,51 @@
+created:
+    - database/migrations/2020_09_03_143556_create_adm_areas_table.php
+    - database/migrations/2020_09_03_143557_create_regions_table.php
+    - database/migrations/2020_09_03_143558_create_metros_table.php
+    - database/migrations/2020_09_03_143559_create_buildings_table.php
+    - database/migrations/2020_09_03_143600_create_contacts_table.php
+    - database/migrations/2020_09_03_143601_create_blocks_table.php
+    - app/Models/AdmArea.php
+    - app/Models/Region.php
+    - app/Models/Metro.php
+    - app/Models/Building.php
+    - app/Models/Contact.php
+    - app/Models/Block.php
+    - database/factories/AdmAreaFactory.php
+    - database/factories/RegionFactory.php
+    - database/factories/MetroFactory.php
+    - database/factories/BuildingFactory.php
+    - database/factories/ContactFactory.php
+    - database/factories/BlockFactory.php
+    - database/seeds/AdmAreaSeeder.php
+    - database/seeds/RegionSeeder.php
+    - database/seeds/MetroSeeder.php
+    - database/seeds/BuildingSeeder.php
+    - database/seeds/ContactSeeder.php
+    - database/seeds/BlockSeeder.php
+    - app/Http/Controllers/BuildingController.php
+    - app/Http/Controllers/BlockController.php
+    - app/Http/Requests/BuildingStoreRequest.php
+    - app/Http/Requests/BuildingUpdateRequest.php
+    - app/Http/Requests/BlockStoreRequest.php
+    - app/Http/Requests/BlockUpdateRequest.php
+    - resources/views/building/index.blade.php
+    - resources/views/building/create.blade.php
+    - resources/views/building/show.blade.php
+    - resources/views/building/edit.blade.php
+    - resources/views/block/index.blade.php
+    - resources/views/block/create.blade.php
+    - resources/views/block/show.blade.php
+    - resources/views/block/edit.blade.php
+    - tests/Feature/Http/Controllers/BuildingControllerTest.php
+    - tests/Feature/Http/Controllers/BlockControllerTest.php
+updated:
+    - routes/web.php
+models:
+    Models\User: { name: string, email: string, email_verified_at: 'datetime nullable', password: string, remember_token: 'string:100 nullable' }
+    AdmArea: { name: string, short_name: 'string nullable', timestamps: false }
+    Region: { name: string, adm_area_id: 'id foreign', timestamps: false }
+    Metro: { name: string, line: 'tinyInteger unsigned', region_id: 'id foreign', cian_id: 'integer unsigned nullable', timestamps: false }
+    Building: { address: string, name: 'string nullable', region_id: 'id foreign', metro_id: 'id foreign', metro_id_2: 'id foreign nullable', metro_id_3: 'id foreign nullable', metro_time: 'tinyInteger unsigned nullable', metro_time_type: 'tinyInteger unsigned nullable', metro_distance: 'smallinteger unsigned nullable', mkad_distance: 'tinyInteger unsigned nullable', year_construction: 'smallinteger unsigned nullable', type: 'tinyInteger unsigned', series: 'string nullable', ceil_height: 'decimal:4,2 unsigned nullable', passenger_lift_count: 'tinyInteger unsigned nullable', cargo_lift_count: 'tinyInteger unsigned nullable', garbage_chute: 'boolean nullable', class: 'enum:A,B,C,D nullable', floors: 'tinyInteger unsigned', parking_type: 'tinyInteger default:null', near_infra: 'boolean default:0', lat: 'decimal:10,8 nullable', lng: 'decimal:11,8 nullable' }
+    Contact: { name: string, type: 'tinyInteger unsigned', timestamps: false }
+    Block: { building_id: 'id foreign', contact_id: 'id foreign', floor: 'tinyInteger unsigned', flat_number: 'tinyInteger unsigned', area: 'decimal:5,2 unsigned', living_area: 'decimal:5,2 unsigned', kitchen_area: 'decimal:4,2 unsigned', type: 'tinyInteger unsigned default:0', rooms: 'tinyInteger unsigned default:0', balcony: 'tinyInteger unsigned default:0', windowsInOut: 'tinyInteger unsigned default:0', separate_wc_count: 'tinyInteger unsigned default:0', combined_wc_count: 'tinyInteger unsigned default:0', renovation: 'tinyInteger unsigned default:0', filling: 'set:1,2,3,4,5,6 nullable', shower_bath: 'tinyInteger unsigned default:0', living_conds: 'set:1,2,3,4,5,6 default:3', tenant_count_limit: 'tinyInteger unsigned nullable', cadastral_number: string, description: 'string:4095 nullable', comment: 'string:1023 nullable', video_url: 'string nullable', status: 'tinyInteger default:1', out_of_market: 'boolean default:1', currency: 'tinyInteger unsigned default:1', contract_signed: 'boolean default:0', commission_type: 'tinyInteger unsigned default:1', commission: 'decimal:5,2 unsigned', commission_comment: 'string:4095 nullable', included: 'set:1,2,3 default:1', parking_cost: 'decimal:7,2 unsigned nullable', cost: 'decimal:10,2 unsigned', bargain: 'decimal:10,2 unsigned nullable', cian: 'tinyInteger unsigned nullable', bet: 'smallInteger unsigned nullable', ad_title: 'string nullable', softdeletes: SoftDeletes }

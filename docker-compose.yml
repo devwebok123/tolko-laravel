@@ -1,0 +1,120 @@
+version: '3.3'
+
+services:
+
+  nginx:
+    container_name: "${APP_ENV}.${APP_NAME}.nginx"
+    build: docker/nginx
+    domainname: "nginx.${APP_NAME}.${APP_ENV}"
+    hostname: "nginx"
+    restart: always
+    ports:
+      - "${EXPOSE_HTTP_PORT}:80"
+    working_dir: ${DOCKER_BASE_PATH}/
+    volumes:
+      - ./:${DOCKER_BASE_PATH}/
+    environment:
+      NGINX_HOST_PATH: "${DOCKER_BASE_PATH}/public/"
+      NGINX_PHP_FPM_HOST: "${APP_ENV}.${APP_NAME}.php-fpm"
+    depends_on:
+      - php-fpm
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "256m"
+        max-file: "10"
+    networks:
+      default:
+        aliases:
+          - "${APP_ENV}.${APP_NAME}.nginx"
+
+  php-fpm:
+    container_name: "${APP_ENV}.${APP_NAME}.php-fpm"
+    build: docker/php-fpm
+    domainname: "php-fpm.${APP_NAME}.${APP_ENV}"
+    hostname: "php-fpm"
+    working_dir: ${DOCKER_BASE_PATH}
+    volumes:
+      - ./:${DOCKER_BASE_PATH}
+    environment:
+      DOCKER_BASE_PATH: ${DOCKER_BASE_PATH}
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "256m"
+        max-file: "10"
+    networks:
+      default:
+        aliases:
+          - "${APP_ENV}.${APP_NAME}.php-fpm"
+
+  mysql:
+    container_name: "${APP_ENV}.${APP_NAME}.mysql"
+    build: docker/mysql
+    domainname: "mysql.${APP_NAME}.${APP_ENV}"
+    hostname: "mysql"
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+      - ./docker/mysql/config/my.cnf/:/etc/mysql/my.cnf
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "256m"
+        max-file: "10"
+    networks:
+      default:
+        aliases:
+          - "${APP_ENV}.${APP_NAME}.mysql"
+
+  phpmyadmin:
+    container_name: "${APP_ENV}.${APP_NAME}.pma"
+    build: docker/pma
+    domainname: "pma.${APP_NAME}.${APP_ENV}"
+    hostname: pma
+    restart: always
+    links:
+      - mysql
+    environment:
+      PMA_HOST: "${PMA_HOST}"
+      PMA_PORT: 3306
+      UPLOAD_LIMIT: 500M
+    depends_on:
+      - mysql
+    ports:
+      - ${EXPOSE_PHPMYADMIN_PORT}:80
+    volumes:
+      - /sessions
+    networks:
+      default:
+        aliases:
+          - "${APP_ENV}.${APP_NAME}.pma"
+  redis:
+    container_name: "${APP_ENV}.${APP_NAME}.redis"
+    build: docker/redis
+    domainname: "redis.${APP_NAME}.${APP_ENV}"
+    hostname: "redis"
+    restart: always
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      REDIS_MAX_MEMORY: ${REDIS_MAX_MEMORY}
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "256m"
+        max-file: "10"
+    networks:
+      default:
+        aliases:
+          - "${APP_ENV}.${APP_NAME}.redis"
+
+
+networks:
+  default:
+    external:
+      name: ${APP_NETWORK_NAME}

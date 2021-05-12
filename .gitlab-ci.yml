@@ -1,0 +1,32 @@
+stages:
+  - test
+  - deploy
+
+# http://docs.gitlab.com/ce/ci/yaml/README.html#cache
+cache:
+  paths:
+    - vendor/
+
+test:
+  stage: test
+  image: registry.gitlab.com/mcity/tolko-back
+  script:
+    - COMPOSER_MEMORY_LIMIT=-1 composer install --ignore-platform-reqs
+    - cp .env.test .env
+    - php artisan key:generate
+    - sh cs_check
+    - ./artisan migrate:fresh
+    - ./artisan test
+#    - ./artisan serve --port 80 & ./artisan dusk
+  only:
+    - merge_requests
+#    - master
+#    - dev
+
+prod:
+  stage: deploy
+  image: registry.gitlab.com/mcity/inv
+  script:
+    - ssh dev@$HOST 'cd tolko-back;git pull; COMPOSER_MEMORY_LIMIT=-1 composer update --no-dev; ./artisan migrate --force; ./artisan config:cache; ./artisan route:cache'
+  only:
+    - dev

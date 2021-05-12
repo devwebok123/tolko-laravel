@@ -1,0 +1,90 @@
+.multiselect-container>li>a>label {
+    padding: 5px 10px;
+    color: black;
+}
+
+.multiselect-container>li:not(.multiselect-all)>a>label {
+    font-weight: normal !important;
+}
+
+.multiselect-container>li>a {
+    display: block;
+}
+
+.multiselect-container>li>a>label>input[type=checkbox] {
+    margin-bottom: 0;
+    vertical-align: sub;
+}
+
+.multiselect-container>li.active>a>label {
+    color: black;
+}
+
+.multiselect-container .input-group {
+    margin: 0;
+}
+
+/* agrid list */
+
+.ag-hidden {
+    display: none;
+}
+
+/* hide buttons around input */
+.multiselect-item.multiselect-filter .input-group > span {
+    display: none;
+}
+
+.multiselect-item.multiselect-filter {
+    padding: 5px 10px;
+}
+
+.multiselect-item .checkbox {
+    font-weight: 600;
+}
+
+.multiselect-all > label {
+    font-weight: bold;
+}
+
+.dropdown-menu>.active>a {
+    background-color: #337ab7;
+}
+
+.ui-autocomplete {
+    z-index: 100000;
+}
+
+.label-block label {
+    display: block !important;
+}
+.mt-label {
+    margin-top: 31px;
+}
+
+/* AUTOCOMPLETE */
+.ui-autocomplete {
+    z-index: 9999 !important;
+}
+
+.btn.btn-default.active {
+    color: white;
+    background-color: #17a2b8; /*info color*/
+}
+
+/* ICON */
+
+.icon-inactive {
+    opacity: 0.3;
+}
+.icon-cian {
+    background: url(/img/cian.png);
+}
+.icon-avito{
+    background: url(/img/avito.png);
+}
+.icon-inv {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+}

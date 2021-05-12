@@ -1,0 +1,2 @@
+#!/usr/bin/env sh
+vendor/bin/phpcbf . --ignore=vendor,public,storage,resources/views,bootstrap/cache,database/migrations --extensions=php,inc --standard=PSR2
